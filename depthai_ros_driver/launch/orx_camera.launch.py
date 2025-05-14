@@ -58,7 +58,7 @@ def launch_setup(context, *args, **kwargs):
     use_composition = LaunchConfiguration("rsp_use_composition", default="true")
     imu_from_descr = LaunchConfiguration("imu_from_descr", default="false")
     publish_tf_from_calibration = LaunchConfiguration(
-        "publish_tf_from_calibration", default="false"
+        "publish_tf_from_calibration", default="true"
     )
     override_cam_model = LaunchConfiguration("override_cam_model", default="false")
     params_file = LaunchConfiguration("params_file")
@@ -238,7 +238,7 @@ def generate_launch_description():
         DeclareLaunchArgument("rsp_use_composition", default_value="true"),
         DeclareLaunchArgument(
             "publish_tf_from_calibration",
-            default_value="false",
+            default_value="true",
             description="Enables TF publishing from camera calibration file.",
         ),
         DeclareLaunchArgument(
