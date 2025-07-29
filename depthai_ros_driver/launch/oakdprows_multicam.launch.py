@@ -1,4 +1,5 @@
 import os
+import yaml
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
@@ -14,8 +15,18 @@ from launch_ros.actions import Node
 def launch_setup(context, *args, **kwargs):
 
     depthai_prefix = get_package_share_directory("depthai_ros_driver")
-    params_file = os.path.join(depthai_prefix, "config", "multicam_oakdprow2.yaml")
-    cams = ["oak_d_pro_w1", "oak_d_pro_w2"]
+    params_file = os.path.join(depthai_prefix, "config", "multicam_oakdprows.yaml")
+    with open(params_file, "r") as f:
+        params = yaml.safe_load(f)
+    cams = []
+    for name in params.keys():
+        if "*" in str(name):  # assume it is a single cam launch file
+            cams.append("oak")
+        else:
+            cams.append(str(name).lstrip("/"))
+    if len(cams) == 0:
+        cams.append("oak")
+    
     nodes = []
     for i, cam_name in enumerate(cams):
         node = IncludeLaunchDescription(
