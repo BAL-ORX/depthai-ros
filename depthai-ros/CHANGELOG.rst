@@ -1,6 +1,22 @@
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Changelog for package depthai-ros
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+2.12.2 (2026-01-5)
+-------------------
+* Find interfaces only on ARM Docker build
+
+2.12.1 (2025-12-23)
+-------------------
+* Messages fix
+
+2.12.0 (2025-12-12)
+-------------------
+* Fix timeshift bug
+* Update launch file
+* Add rotatet img publishing
+* Update base frame naming
+
 2.11.2 (2025-03-17)
 -------------------
 * Add autoexposure region settings
