@@ -10,6 +10,7 @@
 #include "sensor_msgs/msg/camera_info.hpp"
 #include "sensor_msgs/msg/compressed_image.hpp"
 #include "sensor_msgs/msg/image.hpp"
+#include "sensor_msgs/msg/time_reference.hpp"
 
 namespace dai {
 class Device;
@@ -47,6 +48,7 @@ class Image {
     sensor_msgs::msg::CameraInfo::UniquePtr info;
     ffmpeg_image_transport_msgs::msg::FFMPEGPacket::UniquePtr ffmpegPacket;
     sensor_msgs::msg::CompressedImage::UniquePtr compressedImg;
+    sensor_msgs::msg::TimeReference::UniquePtr exposureStart;
 };
 /**
  * @brief ImagePublisher class
@@ -104,6 +106,7 @@ class ImagePublisher {
     rclcpp::Publisher<sensor_msgs::msg::CameraInfo>::SharedPtr infoPub;
     rclcpp::Publisher<ffmpeg_image_transport_msgs::msg::FFMPEGPacket>::SharedPtr ffmpegPub;
     rclcpp::Publisher<sensor_msgs::msg::CompressedImage>::SharedPtr compressedImgPub;
+    rclcpp::Publisher<sensor_msgs::msg::TimeReference>::SharedPtr expStartPub;
     image_transport::CameraPublisher imgPubIT;
     std::shared_ptr<dai::DataOutputQueue> dataQ;
     int cbID;

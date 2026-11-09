@@ -74,6 +74,7 @@ void Mono::setupQueues(std::shared_ptr<dai::Device> device) {
         pubConf.height = ph->getParam<int>("i_height");
         pubConf.maxQSize = ph->getParam<int>("i_max_q_size");
         pubConf.publishCompressed = ph->getParam<bool>("i_publish_compressed");
+        pubConf.publishExposureStart = ph->getParam<bool>("i_publish_exposure_start");
 
         imagePublisher->setup(device, convConf, pubConf);
     }

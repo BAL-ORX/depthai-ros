@@ -76,6 +76,9 @@ struct ImgPublisherConfig {
     int maxQSize = 8;
     bool qBlocking = false;
     bool publishCompressed = false;
+    // Publish <topicName>/exposure_start (sensor_msgs/TimeReference) per frame:
+    // header.stamp = image stamp, time_ref = start of exposure (host clock).
+    bool publishExposureStart = false;
 };
 std::shared_ptr<dai::node::XLinkOut> setupXout(std::shared_ptr<dai::Pipeline> pipeline, const std::string& name);
 }  // namespace utils
