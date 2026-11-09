@@ -1,0 +1,93 @@
+# Per entry:
+#   sync:             launch-time input (read by the launch file, not a ROS
+#                     parameter): hardware synchronisation via FSIN.
+#   ros__parameters:  passed to depthai_ros_driver::Camera as-is.
+#
+# Trigger modes (sync.mode, per sensor via sync.sensors):
+#   trigger  snapshot: every FSIN edge starts one exposure. GLOBAL SHUTTER ONLY
+#            (OV9282, OV9782, AR0234). The frame rate is the pulse rate.
+#   fsync    continuous: the sensor free-runs at the pulse rate with its frame
+#            start locked to FSIN. Needed for ROLLING SHUTTER sensors (IMX378,
+#            IMX477, IMX577, IMX582), which do not support snapshot mode.
+#   none     free-running at i_fps, no hardware sync.
+
+/oak:
+  sync:
+    mode: trigger               # default for all sensors listed below
+    sensors: [rgb, left, right, cam_d] # list uses `mode` for all; mapping sets the mode per sensor, e.g. {rgb: fsync, left: trigger, right: trigger}
+    pulse_rate_hz: 20.0         # MTi SyncOut rate (skip factor 19 @ 400 Hz)
+    trigger_fps: 60.0  # Must be well above the pulse rate: exposure + readout must fit between pulses
+
+  ros__parameters:
+    camera:
+      i_pipeline_type: depthai_ros_driver::pipeline_gen::CamArray
+      i_nn_type: none
+      i_mx_id: "1944301051824F2E00"   # "" = first device found
+      i_usb_speed: SUPER
+      i_enable_ir: false
+      i_publish_tf_from_calibration: false
+    pipeline_gen:
+      i_enable_imu: false      
+      i_enable_sync: false      # DepthAI host-side message sync; FSIN already syncs
+      i_enable_diagnostics: true
+
+    # --- CAM_A: high-resolution camera -------------------------------------
+    rgb:
+      i_publish_topic: true
+      i_enable_lazy_publisher: false
+      i_resolution: 1080P       
+      i_fps: 20.0               
+      i_max_q_size: 30
+      i_calibration_file: ""
+      i_add_exposure_offset: true
+      i_exposure_offset: 1      # stamp at 0=START, 1=MIDDLE, 2=END of exposure
+      r_set_man_exposure: false 
+      r_exposure: 5000          # [us]
+      r_iso: 800
+      r_set_auto_exposure_limit: true
+      r_auto_exposure_limit: 10000   # [us] keeps blur low and bounds sync error
+      r_set_man_whitebalance: false
+      r_whitebalance: 4000
+
+    # --- CAM_B / CAM_C: stereo pair -----------------------------------------
+    left:
+      i_publish_topic: true
+      i_enable_lazy_publisher: false
+      i_resolution: 800P        
+      i_fps: 20.0
+      i_max_q_size: 30
+      i_calibration_file: ""
+      i_add_exposure_offset: true
+      i_exposure_offset: 1
+      r_set_man_exposure: false
+      r_exposure: 2000
+      r_iso: 800
+      r_set_auto_exposure_limit: true
+      r_auto_exposure_limit: 10000
+    right:
+      i_publish_topic: true
+      i_enable_lazy_publisher: false
+      i_resolution: 800P
+      i_fps: 20.0
+      i_max_q_size: 30
+      i_calibration_file: ""
+      i_add_exposure_offset: true
+      i_exposure_offset: 1
+      r_set_man_exposure: false
+      r_exposure: 2000
+      r_iso: 800
+      r_set_auto_exposure_limit: true
+      r_auto_exposure_limit: 10000
+
+    # --- CAM_D --------------------------------------------------------------
+    cam_d:
+      i_publish_topic: true
+      i_enable_lazy_publisher: false
+      i_fps: 20.0
+      i_max_q_size: 30
+      i_calibration_file: ""
+      i_add_exposure_offset: true
+      i_exposure_offset: 1
+      r_set_man_exposure: false
+      r_exposure: 2000
+      r_iso: 800
