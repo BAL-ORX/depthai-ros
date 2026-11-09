@@ -1,0 +1,312 @@
+/oak1:
+  ros__parameters:
+    camera:
+      i_mx_id: 14442C105161D9D600
+      i_pipeline_type: CamArray
+      i_enable_sync: true
+      i_laser_dot_brightness: 0
+      i_floodlight_brightness: 0
+      i_nn_type: none
+      i_tf_base_frame: oak
+      i_tf_camera_name: oak
+      i_tf_parent_frame: oak-d-base-frame
+    pipeline_gen:
+      i_enable_diagnostics: true
+      i_enable_imu: true
+      i_enable_sync: true
+    imu:
+      i_batch_report_threshold: 1
+      i_max_batch_reports: 10
+      i_acc_freq : 400
+      i_gyro_freq: 400
+      i_enable_mag: false
+      i_enable_rotation: false
+      i_get_base_device_timestamp: false
+      i_sync_method: LINEAR_INTERPOLATE_ACCEL
+      i_update_ros_base_time_on_ros_msg: false
+    rgb:
+      i_synced: true
+      i_fps: 20.0
+      i_resolution: 1080P
+      i_publish_topic: true
+      i_add_exposure_offset: true
+      i_exposure_offset: 1 # start, mid, end 
+      r_exposure: 20000
+      r_focus: 1
+      r_iso: 800
+      r_set_man_exposure: false
+      r_set_man_focus: false
+      r_set_man_whitebalance: false
+      r_whitebalance: 3300
+    stereo:
+      i_synced: true
+      i_subpixel: true
+      i_subpixel_fractional_bits: 3
+      i_depth_preset: HIGH_ACCURACY
+      i_align_depth: true
+      i_lr_check: true
+      i_lrc_threshold: 10
+      i_max_q_size: 30
+      i_output_disparity: false
+      i_publish_left_rect: false
+      i_publish_right_rect: false
+      i_publish_synced_rect_pair: false
+      i_publish_topic: true
+      i_socket_name: rgb
+      i_enable_brightness_filter: true
+      i_brightness_filter_min_brightness: 10
+      i_brightness_filter_max_brightness: 225
+      i_stereo_conf_threshold: 150
+      i_enable_threshold_filter: false
+      i_threshold_filter_min_range: 400
+      i_threshold_filter_max_range: 15000
+      i_depth_filter_size: 5
+      i_enable_alpha_scaling: false
+      i_alpha_scaling: 0.0
+      i_enable_companding: false
+      i_enable_decimation_filter: false
+      i_decimation_filter_decimation_mode: PIXEL_SKIPPING
+      i_decimation_filter_decimation_factor: 1
+      i_enable_spatial_filter: false
+      i_spatial_filter_hole_filling_radius: 2
+      i_spatial_filter_alpha: 0.5
+      i_spatial_filter_delta: 20
+      i_spatial_filter_iterations: 1
+      i_enable_speckle_filter: false
+      i_speckle_filter_speckle_range: 50
+      i_enable_temporal_filter: false
+      i_temporal_filter_alpha: 0.4
+      i_temporal_filter_delta: 20
+      i_temporal_filter_persistency: VALID_2_IN_LAST_4
+    left:
+      i_synced: true
+      i_publish_topic: true
+      i_fps: 20.0
+      i_resolution: 800P
+      i_publish_compressed: false
+      i_add_exposure_offset: true
+      i_exposure_offset: 1 # start, mid, end 
+      r_exposure: 1000
+      r_iso: 800
+      r_set_man_exposure: false
+      i_get_base_device_timestamp: false
+    right:
+      i_synced: true
+      i_publish_topic: true
+      i_fps: 20.0
+      i_resolution: 800P
+      i_publish_compressed: false
+      i_add_exposure_offset: true
+      i_exposure_offset: 1 # start, mid, end 
+      r_exposure: 1000
+      r_iso: 800
+      r_set_man_exposure: false
+      i_get_base_device_timestamp: false
+/oak2:
+  ros__parameters:
+    camera:
+      i_mx_id: 14442C10A1FBDAD600
+      i_pipeline_type: CamArray
+      i_enable_sync: true
+      i_laser_dot_brightness: 0
+      i_floodlight_brightness: 0
+      i_nn_type: none
+      i_tf_base_frame: oak
+      i_tf_camera_name: oak
+      i_tf_parent_frame: oak-d-base-frame
+    pipeline_gen:
+      i_enable_diagnostics: true
+      i_enable_imu: true
+      i_enable_sync: true
+    imu:
+      i_batch_report_threshold: 1
+      i_max_batch_reports: 10
+      i_acc_freq : 400
+      i_gyro_freq: 400
+      i_enable_mag: false
+      i_enable_rotation: false
+      i_get_base_device_timestamp: false
+      i_sync_method: LINEAR_INTERPOLATE_ACCEL
+      i_update_ros_base_time_on_ros_msg: false
+    rgb:
+      i_synced: true
+      i_fps: 20.0
+      i_resolution: 1080P
+      i_publish_topic: true
+      i_add_exposure_offset: true
+      i_exposure_offset: 1 # start, mid, end 
+      r_exposure: 20000
+      r_focus: 1
+      r_iso: 800
+      r_set_man_exposure: false
+      r_set_man_focus: false
+      r_set_man_whitebalance: false
+      r_whitebalance: 3300
+    stereo:
+      i_synced: true
+      i_subpixel: true
+      i_subpixel_fractional_bits: 3
+      i_depth_preset: HIGH_ACCURACY
+      i_align_depth: true
+      i_lr_check: true
+      i_lrc_threshold: 10
+      i_max_q_size: 30
+      i_output_disparity: false
+      i_publish_left_rect: false
+      i_publish_right_rect: false
+      i_publish_synced_rect_pair: false
+      i_publish_topic: true
+      i_socket_name: rgb
+      i_enable_brightness_filter: true
+      i_brightness_filter_min_brightness: 10
+      i_brightness_filter_max_brightness: 225
+      i_stereo_conf_threshold: 150
+      i_enable_threshold_filter: false
+      i_threshold_filter_min_range: 400
+      i_threshold_filter_max_range: 15000
+      i_depth_filter_size: 5
+      i_enable_alpha_scaling: false
+      i_alpha_scaling: 0.0
+      i_enable_companding: false
+      i_enable_decimation_filter: false
+      i_decimation_filter_decimation_mode: PIXEL_SKIPPING
+      i_decimation_filter_decimation_factor: 1
+      i_enable_spatial_filter: false
+      i_spatial_filter_hole_filling_radius: 2
+      i_spatial_filter_alpha: 0.5
+      i_spatial_filter_delta: 20
+      i_spatial_filter_iterations: 1
+      i_enable_speckle_filter: false
+      i_speckle_filter_speckle_range: 50
+      i_enable_temporal_filter: false
+      i_temporal_filter_alpha: 0.4
+      i_temporal_filter_delta: 20
+      i_temporal_filter_persistency: VALID_2_IN_LAST_4
+    left:
+      i_synced: true
+      i_publish_topic: true
+      i_fps: 20.0
+      i_resolution: 800P
+      i_publish_compressed: false
+      i_add_exposure_offset: true
+      i_exposure_offset: 1 # start, mid, end 
+      r_exposure: 1000
+      r_iso: 800
+      r_set_man_exposure: false
+      i_get_base_device_timestamp: false
+    right:
+      i_synced: true
+      i_publish_topic: true
+      i_fps: 20.0
+      i_resolution: 800P
+      i_publish_compressed: false
+      i_add_exposure_offset: true
+      i_exposure_offset: 1 # start, mid, end 
+      r_exposure: 1000
+      r_iso: 800
+      r_set_man_exposure: false
+      i_get_base_device_timestamp: false
+# /oak3:
+#   ros__parameters:
+#     camera:
+#       i_mx_id: 14442C10C156D7D600
+#       i_pipeline_type: CamArray
+#       i_enable_sync: true
+#       i_laser_dot_brightness: 0
+#       i_floodlight_brightness: 0
+#       i_nn_type: none
+#       i_tf_base_frame: oak
+#       i_tf_camera_name: oak
+#       i_tf_parent_frame: oak-d-base-frame
+#     pipeline_gen:
+#       i_enable_diagnostics: true
+#       i_enable_imu: true
+#       i_enable_sync: true
+#     imu:
+#       i_batch_report_threshold: 1
+#       i_max_batch_reports: 10
+#       i_acc_freq : 400
+#       i_gyro_freq: 400
+#       i_enable_mag: false
+#       i_enable_rotation: false
+#       i_get_base_device_timestamp: false
+#       i_sync_method: LINEAR_INTERPOLATE_ACCEL
+#       i_update_ros_base_time_on_ros_msg: false
+#     rgb:
+#       i_synced: true
+#       i_fps: 20.0
+#       i_resolution: 1080P
+#       i_publish_topic: true
+#       i_add_exposure_offset: true
+#       i_exposure_offset: 1 # start, mid, end 
+#       r_exposure: 20000
+#       r_focus: 1
+#       r_iso: 800
+#       r_set_man_exposure: false
+#       r_set_man_focus: false
+#       r_set_man_whitebalance: false
+#       r_whitebalance: 3300
+#     stereo:
+#       i_synced: true
+#       i_subpixel: true
+#       i_subpixel_fractional_bits: 3
+#       i_depth_preset: HIGH_ACCURACY
+#       i_align_depth: true
+#       i_lr_check: true
+#       i_lrc_threshold: 10
+#       i_max_q_size: 30
+#       i_output_disparity: false
+#       i_publish_left_rect: false
+#       i_publish_right_rect: false
+#       i_publish_synced_rect_pair: false
+#       i_publish_topic: true
+#       i_socket_name: rgb
+#       i_enable_brightness_filter: true
+#       i_brightness_filter_min_brightness: 10
+#       i_brightness_filter_max_brightness: 225
+#       i_stereo_conf_threshold: 150
+#       i_enable_threshold_filter: false
+#       i_threshold_filter_min_range: 400
+#       i_threshold_filter_max_range: 15000
+#       i_depth_filter_size: 5
+#       i_enable_alpha_scaling: false
+#       i_alpha_scaling: 0.0
+#       i_enable_companding: false
+#       i_enable_decimation_filter: false
+#       i_decimation_filter_decimation_mode: PIXEL_SKIPPING
+#       i_decimation_filter_decimation_factor: 1
+#       i_enable_spatial_filter: false
+#       i_spatial_filter_hole_filling_radius: 2
+#       i_spatial_filter_alpha: 0.5
+#       i_spatial_filter_delta: 20
+#       i_spatial_filter_iterations: 1
+#       i_enable_speckle_filter: false
+#       i_speckle_filter_speckle_range: 50
+#       i_enable_temporal_filter: false
+#       i_temporal_filter_alpha: 0.4
+#       i_temporal_filter_delta: 20
+#       i_temporal_filter_persistency: VALID_2_IN_LAST_4
+#     left:
+#       i_synced: true
+#       i_publish_topic: true
+#       i_fps: 20.0
+#       i_resolution: 800P
+#       i_publish_compressed: false
+#       i_add_exposure_offset: true
+#       i_exposure_offset: 1 # start, mid, end 
+#       r_exposure: 1000
+#       r_iso: 800
+#       r_set_man_exposure: false
+#       i_get_base_device_timestamp: false
+#     right:
+#       i_synced: true
+#       i_publish_topic: true
+#       i_fps: 20.0
+#       i_resolution: 800P
+#       i_publish_compressed: false
+#       i_add_exposure_offset: true
+#       i_exposure_offset: 1 # start, mid, end 
+#       r_exposure: 1000
+#       r_iso: 800
+#       r_set_man_exposure: false
+#       i_get_base_device_timestamp: false

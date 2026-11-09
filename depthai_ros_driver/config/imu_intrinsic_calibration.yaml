@@ -1,0 +1,11 @@
+/**:
+ ros__parameters:
+   camera:
+     i_enable_imu: true
+     i_enable_ir: false
+     i_nn_type: none
+     i_pipeline_type: Stereo
+   left:
+     i_publish_topic: false
+   right:
+     i_publish_topic: false

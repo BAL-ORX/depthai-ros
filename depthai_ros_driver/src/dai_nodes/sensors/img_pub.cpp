@@ -76,6 +76,9 @@ void ImagePublisher::setup(std::shared_ptr<dai::Device> device, const utils::Img
     } else {
         imgPubIT = image_transport::create_camera_publisher(node.get(), pubConfig.topicName + pubConfig.topicSuffix);
     }
+    if(pubConfig.publishExposureStart) {
+        expStartPub = node->create_publisher<sensor_msgs::msg::TimeReference>(pubConfig.topicName + "/exposure_start", rclcpp::QoS(10), pubOptions);
+    }
     if(!synced) {
         dataQ = device->getOutputQueue(getQueueName(), pubConf.maxQSize, pubConf.qBlocking);
         addQueueCB(dataQ);
@@ -184,6 +187,22 @@ std::shared_ptr<Image> ImagePublisher::convertData(const std::shared_ptr<dai::AD
         auto daiImg = std::dynamic_pointer_cast<dai::ImgFrame>(data);
         auto rawMsg = converter->toRosMsgRawPtr(daiImg, info);
         info.header = rawMsg.header;
+        if(expStartPub) {
+            // The image stamp is taken at the configured exposure offset
+            // (END unless i_add_exposure_offset). Walk back to start of exposure
+            // with this frame's exposure time.
+            const int64_t expNs = std::chrono::duration_cast<std::chrono::nanoseconds>(daiImg->getExposureTime()).count();
+            int64_t backNs = expNs;  // END
+            if(convConfig.addExposureOffset) {
+                if(convConfig.expOffset == dai::CameraExposureOffset::START) backNs = 0;
+                if(convConfig.expOffset == dai::CameraExposureOffset::MIDDLE) backNs = expNs / 2;
+            }
+            auto exp = std::make_unique<sensor_msgs::msg::TimeReference>();
+            exp->header = rawMsg.header;
+            exp->time_ref = (rclcpp::Time(rawMsg.header.stamp) - rclcpp::Duration(std::chrono::nanoseconds(backNs)));
+            exp->source = "exposure_start;exposure_us=" + std::to_string(expNs / 1000);
+            img->exposureStart = std::move(exp);
+        }
         sensor_msgs::msg::Image::UniquePtr msg = std::make_unique<sensor_msgs::msg::Image>(rawMsg);
         img->image = std::move(msg);
     }
@@ -192,6 +211,9 @@ std::shared_ptr<Image> ImagePublisher::convertData(const std::shared_ptr<dai::AD
     return img;
 }
 void ImagePublisher::publish(std::shared_ptr<Image> img) {
+    if(expStartPub && img->exposureStart) {
+        expStartPub->publish(std::move(img->exposureStart));
+    }
     // Rotate only uncompressed images - compressed image rotation is too costly
     if(pubConfig.flipImage && !pubConfig.publishCompressed) {
         try {
@@ -226,6 +248,14 @@ void ImagePublisher::publish(std::shared_ptr<Image> img) {
     }
 }
 void ImagePublisher::publish(std::shared_ptr<Image> img, rclcpp::Time timestamp) {
+    if(img->exposureStart) {
+        // Synced publishing re-stamps the image; keep exposure_start consistent
+        // (same header stamp, start of exposure shifted by the same amount).
+        // Plain nanoseconds: rclcpp::Time arithmetic throws on mixed clock types.
+        const int64_t shiftNs = timestamp.nanoseconds() - rclcpp::Time(img->exposureStart->header.stamp).nanoseconds();
+        img->exposureStart->header.stamp = timestamp;
+        img->exposureStart->time_ref = rclcpp::Time(rclcpp::Time(img->exposureStart->time_ref).nanoseconds() + shiftNs);
+    }
     img->info->header.stamp = timestamp;
     if(pubConfig.publishCompressed) {
         if(encConfig.profile == dai::VideoEncoderProperties::Profile::MJPEG) {
