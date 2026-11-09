@@ -92,6 +92,7 @@ void RGB::setupQueues(std::shared_ptr<dai::Device> device) {
         pubConfig.height = ph->getParam<int>("i_height");
         pubConfig.maxQSize = ph->getParam<int>("i_max_q_size");
         pubConfig.publishCompressed = ph->getParam<bool>("i_publish_compressed");
+        pubConfig.publishExposureStart = ph->getParam<bool>("i_publish_exposure_start");
 
         rgbPub->setup(device, convConfig, pubConfig);
     }
