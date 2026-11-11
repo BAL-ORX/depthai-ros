@@ -1,6 +1,10 @@
-# Per entry:
-#   sync:             launch-time input (read by the launch file, not a ROS
-#                     parameter): hardware synchronisation via FSIN.
+# OAK-FFC-4P config for launch/orx_oak.launch.py:
+#   ros2 launch depthai_ros_driver orx_oak.launch.py params_file:=<this file>
+#
+# Per entry (one per device, the key is the node name):
+#   device:           launch-time input: model, TF (see orx_oak.launch.py).
+#   sync:             launch-time input, optional: hardware synchronisation via
+#                     FSIN. Remove the block for driver defaults.
 #   ros__parameters:  passed to depthai_ros_driver::Camera as-is.
 #
 # Trigger modes (sync.mode, per sensor via sync.sensors):
@@ -12,11 +16,13 @@
 #   none     free-running at i_fps, no hardware sync.
 
 /oak:
+  device:
+    model: OAK-FFC-4P           # no EEPROM calibration -> no TF
   sync:
     mode: trigger               # default for all sensors listed below
     sensors: [rgb, left, right, cam_d] # list uses `mode` for all; mapping sets the mode per sensor, e.g. {rgb: fsync, left: trigger, right: trigger}
     pulse_rate_hz: 20.0         # MTi SyncOut rate (skip factor 19 @ 400 Hz)
-    trigger_fps: 60.0  # Must be well above the pulse rate: exposure + readout must fit between pulses
+    trigger_fps: 60.0           # Must be well above the pulse rate: exposure + readout must fit between pulses
 
   ros__parameters:
     camera:

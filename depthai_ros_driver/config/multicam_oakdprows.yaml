@@ -1,4 +1,19 @@
+# Two (three) OAK-D Pro W for launch/orx_oak.launch.py:
+#   ros2 launch depthai_ros_driver orx_oak.launch.py params_file:=<this file>
+#
+# Per entry (one per device, the key is the node name and TF prefix):
+#   device:           launch-time input: model and mounting pose. The driver
+#                     publishes TF from the device calibration, parent_frame ->
+#                     <name> at pose; the URDF adds the housing.
+#   ros__parameters:  passed to depthai_ros_driver::Camera as-is. The i_tf_*
+#                     values below are overridden from the device block.
+# Several devices: every entry needs camera.i_mx_id.
+
 /oak1:
+  device:
+    model: OAK-D-PRO-W
+    parent_frame: map
+    pose: [0.0, 0.0, 0.0, 0.0, 0.0, 0.0]   # x y z [m], roll pitch yaw [rad]
   ros__parameters:
     camera:
       i_mx_id: 14442C105161D9D600
@@ -103,6 +118,10 @@
       r_set_man_exposure: false
       i_get_base_device_timestamp: false
 /oak2:
+  device:
+    model: OAK-D-PRO-W
+    parent_frame: map
+    pose: [0.0, -0.1, 0.0, 0.0, 0.0, 0.0]   # x y z [m], roll pitch yaw [rad]
   ros__parameters:
     camera:
       i_mx_id: 14442C10A1FBDAD600
@@ -207,6 +226,10 @@
       r_set_man_exposure: false
       i_get_base_device_timestamp: false
 # /oak3:
+#   device:
+#     model: OAK-D-PRO-W
+#     parent_frame: map
+#     pose: [0.0, -0.2, 0.0, 0.0, 0.0, 0.0]   # x y z [m], roll pitch yaw [rad]
 #   ros__parameters:
 #     camera:
 #       i_mx_id: 14442C10C156D7D600
